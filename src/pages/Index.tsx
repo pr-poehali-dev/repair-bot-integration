@@ -12,8 +12,12 @@ interface RepairRequest {
   id: number;
   type: string;
   description: string;
-  status: 'new' | 'in-progress' | 'completed';
+  status: 'new' | 'awaiting-confirmation' | 'in-progress' | 'completed';
   date: string;
+  masterConfirmed?: boolean;
+  supplierConfirmed?: boolean;
+  masterName?: string;
+  supplierName?: string;
 }
 
 interface Consultation {
@@ -45,8 +49,12 @@ export default function Index() {
       id: 1,
       type: 'Сантехника',
       description: 'Течёт кран на кухне',
-      status: 'in-progress',
-      date: '2026-02-05'
+      status: 'awaiting-confirmation',
+      date: '2026-02-05',
+      masterConfirmed: true,
+      supplierConfirmed: false,
+      masterName: 'Иван Петров',
+      supplierName: 'Аквасервис'
     },
     {
       id: 2,
@@ -98,7 +106,8 @@ export default function Index() {
   const getStatusBadge = (status: string) => {
     const statusConfig = {
       new: { label: 'Новая', variant: 'default' as const },
-      'in-progress': { label: 'В работе', variant: 'secondary' as const },
+      'awaiting-confirmation': { label: 'Ожидание согласования', variant: 'secondary' as const },
+      'in-progress': { label: 'В работе', variant: 'destructive' as const },
       completed: { label: 'Выполнена', variant: 'outline' as const }
     };
     
@@ -233,8 +242,54 @@ export default function Index() {
                       {getStatusBadge(request.status)}
                     </div>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="space-y-3">
                     <p className="text-sm text-muted-foreground">{request.description}</p>
+                    
+                    {(request.masterName || request.supplierName) && (
+                      <div className="border-t pt-3 space-y-2">
+                        {request.masterName && (
+                          <div className="flex items-center justify-between text-sm">
+                            <div className="flex items-center gap-2">
+                              <Icon name="UserCheck" size={16} className="text-muted-foreground" />
+                              <span className="text-muted-foreground">Мастер:</span>
+                              <span className="font-medium">{request.masterName}</span>
+                            </div>
+                            {request.masterConfirmed ? (
+                              <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+                                <Icon name="CheckCircle" size={12} className="mr-1" />
+                                Подтверждено
+                              </Badge>
+                            ) : (
+                              <Badge variant="outline" className="bg-yellow-50 text-yellow-700 border-yellow-200">
+                                <Icon name="Clock" size={12} className="mr-1" />
+                                Ожидание
+                              </Badge>
+                            )}
+                          </div>
+                        )}
+                        
+                        {request.supplierName && (
+                          <div className="flex items-center justify-between text-sm">
+                            <div className="flex items-center gap-2">
+                              <Icon name="Package" size={16} className="text-muted-foreground" />
+                              <span className="text-muted-foreground">Поставщик:</span>
+                              <span className="font-medium">{request.supplierName}</span>
+                            </div>
+                            {request.supplierConfirmed ? (
+                              <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+                                <Icon name="CheckCircle" size={12} className="mr-1" />
+                                Подтверждено
+                              </Badge>
+                            ) : (
+                              <Badge variant="outline" className="bg-yellow-50 text-yellow-700 border-yellow-200">
+                                <Icon name="Clock" size={12} className="mr-1" />
+                                Ожидание
+                              </Badge>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </CardContent>
                 </Card>
               ))
@@ -244,16 +299,31 @@ export default function Index() {
           <TabsContent value="consultation" className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle>Задать вопрос мастеру</CardTitle>
+                <CardTitle>Консультация специалиста</CardTitle>
                 <CardDescription>
-                  Получите консультацию перед созданием заявки
+                  Специалист поможет с консультацией и отправит заявку мастеру и поставщику
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 space-y-2">
+                  <div className="flex items-start gap-3">
+                    <Icon name="Info" size={20} className="text-blue-600 mt-0.5" />
+                    <div className="space-y-1 text-sm">
+                      <p className="font-medium text-blue-900">Как работает процесс:</p>
+                      <ol className="list-decimal list-inside space-y-1 text-blue-700">
+                        <li>Вы задаёте вопрос о проблеме</li>
+                        <li>Специалист консультирует и создаёт заявку</li>
+                        <li>Заявка отправляется мастеру и поставщику материалов</li>
+                        <li>Как только оба подтверждают — заявка переходит в работу</li>
+                      </ol>
+                    </div>
+                  </div>
+                </div>
+                
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Ваш вопрос</label>
                   <Textarea
-                    placeholder="Например: Сколько стоит замена розетки?"
+                    placeholder="Например: Течёт кран на кухне, что делать?"
                     value={consultationQuestion}
                     onChange={(e) => setConsultationQuestion(e.target.value)}
                     rows={3}
@@ -265,7 +335,7 @@ export default function Index() {
                   disabled={!consultationQuestion}
                 >
                   <Icon name="MessageCircle" size={18} />
-                  Отправить вопрос
+                  Отправить вопрос специалисту
                 </Button>
               </CardContent>
             </Card>
