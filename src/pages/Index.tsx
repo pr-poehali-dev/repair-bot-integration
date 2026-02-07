@@ -23,8 +23,19 @@ interface Consultation {
   date: string;
 }
 
+interface Supplier {
+  id: number;
+  name: string;
+  category: string;
+  phone: string;
+  email: string;
+  address: string;
+  rating: number;
+}
+
 export default function Index() {
   const [activeTab, setActiveTab] = useState('create');
+  const [suppliers, setSuppliers] = useState<Supplier[]>([]);
   const [repairType, setRepairType] = useState('');
   const [description, setDescription] = useState('');
   const [consultationQuestion, setConsultationQuestion] = useState('');
@@ -113,7 +124,7 @@ export default function Index() {
 
       <main className="container mx-auto px-4 py-8 max-w-4xl">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-8">
+          <TabsList className="grid w-full grid-cols-4 mb-8">
             <TabsTrigger value="create" className="gap-2">
               <Icon name="Plus" size={18} />
               Создать заявку
@@ -125,6 +136,10 @@ export default function Index() {
             <TabsTrigger value="consultation" className="gap-2">
               <Icon name="MessageCircle" size={18} />
               Консультация
+            </TabsTrigger>
+            <TabsTrigger value="suppliers" className="gap-2">
+              <Icon name="Store" size={18} />
+              Поставщики
             </TabsTrigger>
           </TabsList>
 
@@ -279,6 +294,63 @@ export default function Index() {
                       </div>
                     </CardContent>
                   )}
+                </Card>
+              ))}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="suppliers" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>База поставщиков материалов</CardTitle>
+                <CardDescription>
+                  Проверенные поставщики для быстрой доставки материалов
+                </CardDescription>
+              </CardHeader>
+            </Card>
+
+            <div className="grid gap-4 md:grid-cols-2">
+              {[
+                { id: 1, name: 'СтройМатериалы Pro', category: 'Отделка', phone: '+7 (495) 123-45-67', email: 'info@stroypro.ru', address: 'Москва, ул. Строительная, 10', rating: 4.8 },
+                { id: 2, name: 'Электромир', category: 'Электрика', phone: '+7 (495) 234-56-78', email: 'sales@electromir.ru', address: 'Москва, пр. Электриков, 25', rating: 4.9 },
+                { id: 3, name: 'Аквасервис', category: 'Сантехника', phone: '+7 (495) 345-67-89', email: 'order@aquaservis.ru', address: 'Москва, ул. Водопроводная, 5', rating: 4.7 },
+                { id: 4, name: 'МебельЛюкс', category: 'Мебель', phone: '+7 (495) 456-78-90', email: 'info@mebellux.ru', address: 'Москва, ул. Мебельная, 15', rating: 4.6 }
+              ].map((supplier) => (
+                <Card key={supplier.id} className="hover:shadow-md transition-shadow">
+                  <CardHeader>
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <CardTitle className="text-lg">{supplier.name}</CardTitle>
+                        <CardDescription className="flex items-center gap-1 mt-1">
+                          <Badge variant="secondary" className="text-xs">
+                            {supplier.category}
+                          </Badge>
+                        </CardDescription>
+                      </div>
+                      <div className="flex items-center gap-1 bg-yellow-50 px-2 py-1 rounded">
+                        <Icon name="Star" size={14} className="text-yellow-600 fill-yellow-600" />
+                        <span className="text-sm font-semibold text-yellow-700">{supplier.rating}</span>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="space-y-2">
+                    <div className="flex items-center gap-2 text-sm">
+                      <Icon name="Phone" size={14} className="text-muted-foreground" />
+                      <a href={`tel:${supplier.phone}`} className="hover:text-primary transition-colors">
+                        {supplier.phone}
+                      </a>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <Icon name="Mail" size={14} className="text-muted-foreground" />
+                      <a href={`mailto:${supplier.email}`} className="hover:text-primary transition-colors truncate">
+                        {supplier.email}
+                      </a>
+                    </div>
+                    <div className="flex items-start gap-2 text-sm">
+                      <Icon name="MapPin" size={14} className="text-muted-foreground mt-0.5" />
+                      <span className="text-muted-foreground">{supplier.address}</span>
+                    </div>
+                  </CardContent>
                 </Card>
               ))}
             </div>
