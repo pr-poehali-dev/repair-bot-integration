@@ -133,7 +133,7 @@ export default function Index() {
 
       <main className="container mx-auto px-4 py-8 max-w-4xl">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-4 mb-8">
+          <TabsList className="grid w-full grid-cols-5 mb-8">
             <TabsTrigger value="create" className="gap-2">
               <Icon name="Plus" size={18} />
               Создать заявку
@@ -145,6 +145,10 @@ export default function Index() {
             <TabsTrigger value="consultation" className="gap-2">
               <Icon name="MessageCircle" size={18} />
               Консультация
+            </TabsTrigger>
+            <TabsTrigger value="specialist" className="gap-2">
+              <Icon name="Briefcase" size={18} />
+              Панель специалиста
             </TabsTrigger>
             <TabsTrigger value="suppliers" className="gap-2">
               <Icon name="Store" size={18} />
@@ -366,6 +370,176 @@ export default function Index() {
                   )}
                 </Card>
               ))}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="specialist" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Панель специалиста сервиса</CardTitle>
+                <CardDescription>
+                  Управление откликами мастеров и поставщиков на заявки
+                </CardDescription>
+              </CardHeader>
+            </Card>
+
+            <div className="space-y-6">
+              <Card className="border-2">
+                <CardHeader>
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <CardTitle className="text-lg">Заявка #1 — Сантехника</CardTitle>
+                      <CardDescription className="mt-1">
+                        Клиент: Анна Смирнова • Течёт кран на кухне
+                      </CardDescription>
+                    </div>
+                    <Badge variant="secondary">Ожидание согласования</Badge>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div>
+                    <div className="flex items-center gap-2 mb-3">
+                      <Icon name="Users" size={18} className="text-primary" />
+                      <h3 className="font-semibold">Отклики мастеров (2)</h3>
+                    </div>
+                    <div className="space-y-3">
+                      <Card className="bg-green-50 border-green-200">
+                        <CardContent className="pt-4">
+                          <div className="flex items-start justify-between mb-2">
+                            <div>
+                              <p className="font-semibold">Иван Петров</p>
+                              <p className="text-sm text-muted-foreground">Сантехник • ⭐ 4.9</p>
+                            </div>
+                            <Badge className="bg-green-600">Принято</Badge>
+                          </div>
+                          <div className="grid grid-cols-2 gap-2 text-sm mt-3">
+                            <div>
+                              <span className="text-muted-foreground">Цена:</span>
+                              <span className="font-semibold ml-1">3000₽</span>
+                            </div>
+                            <div>
+                              <span className="text-muted-foreground">Время:</span>
+                              <span className="font-semibold ml-1">2-3 часа</span>
+                            </div>
+                          </div>
+                          <p className="text-sm text-muted-foreground mt-2 italic">
+                            "Готов приехать сегодня после 14:00"
+                          </p>
+                        </CardContent>
+                      </Card>
+
+                      <Card className="bg-gray-50">
+                        <CardContent className="pt-4">
+                          <div className="flex items-start justify-between mb-2">
+                            <div>
+                              <p className="font-semibold">Алексей Сидоров</p>
+                              <p className="text-sm text-muted-foreground">Электрик • ⭐ 4.8</p>
+                            </div>
+                            <Badge variant="outline">Ожидание</Badge>
+                          </div>
+                          <div className="grid grid-cols-2 gap-2 text-sm mt-3">
+                            <div>
+                              <span className="text-muted-foreground">Цена:</span>
+                              <span className="font-semibold ml-1">3500₽</span>
+                            </div>
+                            <div>
+                              <span className="text-muted-foreground">Время:</span>
+                              <span className="font-semibold ml-1">1 день</span>
+                            </div>
+                          </div>
+                          <p className="text-sm text-muted-foreground mt-2 italic">
+                            "Могу выполнить завтра утром"
+                          </p>
+                          <div className="flex gap-2 mt-3">
+                            <Button size="sm" className="flex-1">Принять</Button>
+                            <Button size="sm" variant="outline" className="flex-1">Отклонить</Button>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="flex items-center gap-2 mb-3">
+                      <Icon name="Package" size={18} className="text-primary" />
+                      <h3 className="font-semibold">Отклики поставщиков (2)</h3>
+                    </div>
+                    <div className="space-y-3">
+                      <Card className="bg-green-50 border-green-200">
+                        <CardContent className="pt-4">
+                          <div className="flex items-start justify-between mb-2">
+                            <div>
+                              <p className="font-semibold">СтройМатериалы Pro</p>
+                              <p className="text-sm text-muted-foreground">Отделка • ⭐ 4.8</p>
+                            </div>
+                            <Badge className="bg-green-600">Принято</Badge>
+                          </div>
+                          <div className="grid grid-cols-2 gap-2 text-sm mt-3">
+                            <div>
+                              <span className="text-muted-foreground">Цена:</span>
+                              <span className="font-semibold ml-1">1800₽</span>
+                            </div>
+                            <div>
+                              <span className="text-muted-foreground">Доставка:</span>
+                              <span className="font-semibold ml-1">3 часа</span>
+                            </div>
+                          </div>
+                          <p className="text-sm text-muted-foreground mt-2 italic">
+                            "Премиум-смеситель с гарантией"
+                          </p>
+                        </CardContent>
+                      </Card>
+
+                      <Card className="bg-gray-50">
+                        <CardContent className="pt-4">
+                          <div className="flex items-start justify-between mb-2">
+                            <div>
+                              <p className="font-semibold">Аквасервис</p>
+                              <p className="text-sm text-muted-foreground">Сантехника • ⭐ 4.7</p>
+                            </div>
+                            <Badge variant="outline">Ожидание</Badge>
+                          </div>
+                          <div className="grid grid-cols-2 gap-2 text-sm mt-3">
+                            <div>
+                              <span className="text-muted-foreground">Цена:</span>
+                              <span className="font-semibold ml-1">1500₽</span>
+                            </div>
+                            <div>
+                              <span className="text-muted-foreground">Доставка:</span>
+                              <span className="font-semibold ml-1">2 часа</span>
+                            </div>
+                          </div>
+                          <p className="text-sm text-muted-foreground mt-2 italic">
+                            "Смеситель в наличии, доставка бесплатная"
+                          </p>
+                          <div className="flex gap-2 mt-3">
+                            <Button size="sm" className="flex-1">Принять</Button>
+                            <Button size="sm" variant="outline" className="flex-1">Отклонить</Button>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </div>
+
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <div className="flex items-start gap-3">
+                      <Icon name="Info" size={20} className="text-blue-600" />
+                      <div className="text-sm text-blue-700">
+                        <p className="font-semibold mb-1">Статус согласования:</p>
+                        <p>✅ Мастер подтверждён: Иван Петров</p>
+                        <p>✅ Поставщик подтверждён: СтройМатериалы Pro</p>
+                        <p className="mt-2 font-semibold text-green-700">
+                          Заявка готова к переводу в работу!
+                        </p>
+                      </div>
+                    </div>
+                    <Button className="w-full mt-3" size="lg">
+                      <Icon name="CheckCircle" size={18} />
+                      Перевести заявку в работу
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </TabsContent>
 
