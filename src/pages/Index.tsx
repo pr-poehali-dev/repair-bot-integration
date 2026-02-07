@@ -314,7 +314,17 @@ export default function Index() {
                 { id: 1, name: 'СтройМатериалы Pro', category: 'Отделка', phone: '+7 (495) 123-45-67', email: 'info@stroypro.ru', address: 'Москва, ул. Строительная, 10', rating: 4.8 },
                 { id: 2, name: 'Электромир', category: 'Электрика', phone: '+7 (495) 234-56-78', email: 'sales@electromir.ru', address: 'Москва, пр. Электриков, 25', rating: 4.9 },
                 { id: 3, name: 'Аквасервис', category: 'Сантехника', phone: '+7 (495) 345-67-89', email: 'order@aquaservis.ru', address: 'Москва, ул. Водопроводная, 5', rating: 4.7 },
-                { id: 4, name: 'МебельЛюкс', category: 'Мебель', phone: '+7 (495) 456-78-90', email: 'info@mebellux.ru', address: 'Москва, ул. Мебельная, 15', rating: 4.6 }
+                { id: 4, name: 'МебельЛюкс', category: 'Мебель', phone: '+7 (495) 456-78-90', email: 'info@mebellux.ru', address: 'Москва, ул. Мебельная, 15', rating: 4.6 },
+                { id: 5, name: 'КраскиПро', category: 'Малярные материалы', phone: '+7 (495) 567-89-01', email: 'sale@kraskipro.ru', address: 'Москва, ул. Малярная, 12', rating: 4.7 },
+                { id: 6, name: 'ШпаклёвкаЦентр', category: 'Малярные материалы', phone: '+7 (495) 678-90-12', email: 'info@shpaklevka.ru', address: 'Москва, пр. Отделочников, 8', rating: 4.5 },
+                { id: 7, name: 'МастерОтделки', category: 'Малярные материалы', phone: '+7 (495) 789-01-23', email: 'order@masterotdelki.ru', address: 'Москва, ул. Ремонтная, 20', rating: 4.8 },
+                { id: 8, name: 'ЛинолеумМаркет', category: 'Напольные покрытия', phone: '+7 (495) 890-12-34', email: 'sales@linomarket.ru', address: 'Москва, ул. Напольная, 15', rating: 4.6 },
+                { id: 9, name: 'ПаркетГрупп', category: 'Напольные покрытия', phone: '+7 (495) 901-23-45', email: 'info@parketgroup.ru', address: 'Москва, пр. Паркетный, 30', rating: 4.9 },
+                { id: 10, name: 'ЛаминатСтиль', category: 'Напольные покрытия', phone: '+7 (495) 012-34-56', email: 'contact@laminatstyle.ru', address: 'Москва, ул. Ламинатная, 5', rating: 4.7 },
+                { id: 11, name: 'ОбоиДекор', category: 'Обои', phone: '+7 (495) 123-45-78', email: 'sale@oboidecor.ru', address: 'Москва, ул. Обойная, 18', rating: 4.8 },
+                { id: 12, name: 'СтильОбоев', category: 'Обои', phone: '+7 (495) 234-56-89', email: 'info@stiloboev.ru', address: 'Москва, пр. Декоративный, 22', rating: 4.6 },
+                { id: 13, name: 'ДвериПремиум', category: 'Двери', phone: '+7 (495) 345-67-90', email: 'order@dveripremium.ru', address: 'Москва, ул. Дверная, 40', rating: 4.9 },
+                { id: 14, name: 'ДверьМастер', category: 'Двери', phone: '+7 (495) 456-78-01', email: 'sales@dvermaster.ru', address: 'Москва, пр. Столярный, 25', rating: 4.7 }
               ].map((supplier) => (
                 <Card key={supplier.id} className="hover:shadow-md transition-shadow">
                   <CardHeader>
